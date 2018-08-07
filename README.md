@@ -1,27 +1,34 @@
-# LetsChat
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Let's Chat
+A demo chat application that exercises a few basic firebase operations
+Built with Angular and AngularFire2
 
 ## Build
+```
+npm install
+```
+## Configure
+Dev - Update src/environments/environment.ts and add the firebase credentials for the desired dev instance
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Prod - Update src/environments/environment.prod.ts and add the firebase credentials for the desired prod instance
 
-## Running unit tests
+## Run
+```
+npm start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Deploy
+Install the firebase CLI and run 
+```
+firebase deploy
+```
 
-## Running end-to-end tests
+## Special Thanks
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Background image courtesy of:
+https://jooinn.com/soft-wallpaper.html
 
-## Further help
+CSS framework milligram:
+https://milligram.io/
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Author
+Paul Spears - @dpsthree - github.com/dpsthree
