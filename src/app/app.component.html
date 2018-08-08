@@ -7,7 +7,8 @@
     </div>
   </div>
   <div class="center-content">
-    <span>{{topicDoc?.topic}}</span>
+    <span *ngIf="!editingTopic" (click)="editingTopic = true">{{topicDoc?.topic}}</span>
+    <input *ngIf="editingTopic" type="text" #topic (keyup.enter)="changeTopic(topic)">
     <div class="chat-box" #chatBox [scrollTop]="chatBox.scrollHeight">
       <ul>
         <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>

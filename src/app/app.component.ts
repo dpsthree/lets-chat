@@ -20,6 +20,7 @@ export class AppComponent {
   };
   newAccount = true;
   topicDoc: { id: string, topic: string };
+  editingTopic = false;
 
   constructor(private db: AngularFirestore, private afa: AngularFireAuth) {
 
@@ -28,13 +29,13 @@ export class AppComponent {
     this.afa.user.subscribe(user => this.user = user);
 
     this.db.collection<{ topic: string }>('meta', meta => meta.where('metaField', '==', 'topic').limit(1))
-    .snapshotChanges()
-    .forEach(snapShot => {
-      this.topicDoc = {
-        id: snapShot[0].payload.doc.id,
-        topic: snapShot[0].payload.doc.data().topic
-      };
-    });
+      .snapshotChanges()
+      .forEach(snapShot => {
+        this.topicDoc = {
+          id: snapShot[0].payload.doc.id,
+          topic: snapShot[0].payload.doc.data().topic
+        };
+      });
 
   }
 
@@ -64,5 +65,11 @@ export class AppComponent {
     this.afa.auth.signInAndRetrieveDataWithEmailAndPassword(this.credentials.email, this.credentials.password);
   }
 
-
+  changeTopic(input: HTMLInputElement) {
+    this.db.collection('meta').doc(this.topicDoc.id).update({ topic: input.value })
+      .then(() => {
+        input.value = '';
+        this.editingTopic = false;
+      });
+  }
 }
