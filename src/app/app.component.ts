@@ -31,7 +31,7 @@ export class AppComponent {
 
   sendMessage(input: HTMLInputElement) {
     this.db.collection('chatMessages').add({
-      from: 'Paul',
+      from: this.user.displayName,
       message: input.value,
       time: Date.now()
     }).then(() => {
