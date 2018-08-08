@@ -1,11 +1,36 @@
-<div class="header clearfix">
-  <h1 class="title float-left">Let's Chat!</h1>
-</div>
-<div class="center-content">
-  <div class="chat-box" #chatBox [scrollTop]="chatBox.scrollHeight">
-    <ul>
-      <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>
-    </ul>
+<ng-container *ngIf="user">
+  <div class="header clearfix">
+    <h1 class="title float-left">Let's Chat!</h1>
+    <div class="float-right">
+      <p>{{user.displayName}}</p>
+      <i class="material-icons" (click)="logout()">account_circle</i>
+    </div>
   </div>
-  <input placeholder="Type your message here..." #input (keyup.enter)="sendMessage(input)" type="text">
+  <div class="center-content">
+    <div class="chat-box" #chatBox [scrollTop]="chatBox.scrollHeight">
+      <ul>
+        <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>
+      </ul>
+    </div>
+    <input placeholder="Type your message here..." #input (keyup.enter)="sendMessage(input)" type="text">
+  </div>
+</ng-container>
+<div *ngIf="!user" class="center-content">
+  <h1 class="title">Let's Chat!</h1>
+  <form (ngSubmit)="createUser()" #createUserForm="ngForm" *ngIf="newAccount">
+    <h3>Create a user</h3>
+    <input placeholder="Email Address" name="email" required type="email" [(ngModel)]="credentials.email">
+    <input placeholder="Password" name="password" required type="password" [(ngModel)]="credentials.password">
+    <input placeholder="Display Name" name="displayName" required type="text" [(ngModel)]="credentials.displayName">
+    <button class="float-right">Create Account</button>
+    <p class="float-left">Already have an account? <a (click)="newAccount = false">Click here</a> to login</p>
+  </form>
+  <form (ngSubmit)="login()" #existingUserForm="ngForm" *ngIf="!newAccount">
+    <h3>Please login to continue</h3>
+    <input placeholder="Email Address" name="email" required type="email" [(ngModel)]="credentials.email">
+    <input placeholder="Password" name="password" required type="password" [(ngModel)]="credentials.password">
+    <button class="float-right">Login</button>
+    <p class="float-left">New User? <a (click)="newAccount = true">Click here</a> to register</p>
+  </form>
+
 </div>
