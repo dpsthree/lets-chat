@@ -12,13 +12,16 @@ export class AppComponent {
   chatMessages: Observable<any[]>;
 
   constructor(private db: AngularFirestore) {
-    this.chatMessages = db.collection('chatMessages').valueChanges();
+    this.chatMessages = db.collection('chatMessages', col => col.orderBy('time')).
+      valueChanges();
+
   }
 
   sendMessage(input: HTMLInputElement) {
     this.db.collection('chatMessages').add({
       from: 'Paul',
-      message: input.value
+      message: input.value,
+      time: Date.now()
     }).then(() => {
       input.value = '';
     });
