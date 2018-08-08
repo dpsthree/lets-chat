@@ -7,6 +7,7 @@
     </div>
   </div>
   <div class="center-content">
+    <span>{{topicDoc?.topic}}</span>
     <div class="chat-box" #chatBox [scrollTop]="chatBox.scrollHeight">
       <ul>
         <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>

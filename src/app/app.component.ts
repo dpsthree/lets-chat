@@ -19,13 +19,22 @@ export class AppComponent {
     displayName: ''
   };
   newAccount = true;
-
+  topicDoc: { id: string, topic: string };
 
   constructor(private db: AngularFirestore, private afa: AngularFireAuth) {
 
     this.chatMessages = db.collection('chatMessages', col => col.orderBy('time')).
       valueChanges();
     this.afa.user.subscribe(user => this.user = user);
+
+    this.db.collection<{ topic: string }>('meta', meta => meta.where('metaField', '==', 'topic').limit(1))
+    .snapshotChanges()
+    .forEach(snapShot => {
+      this.topicDoc = {
+        id: snapShot[0].payload.doc.id,
+        topic: snapShot[0].payload.doc.data().topic
+      };
+    });
 
   }
 
