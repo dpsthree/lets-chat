@@ -7,5 +7,5 @@
       <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>
     </ul>
   </div>
-  <input placeholder="Type your message here..." type="text">
+  <input placeholder="Type your message here..." #input (keyup.enter)="sendMessage(input)" type="text">
 </div>

@@ -15,4 +15,13 @@ export class AppComponent {
     this.chatMessages = db.collection('chatMessages').valueChanges();
   }
 
+  sendMessage(input: HTMLInputElement) {
+    this.db.collection('chatMessages').add({
+      from: 'Paul',
+      message: input.value
+    }).then(() => {
+      input.value = '';
+    });
+  }
+
 }
