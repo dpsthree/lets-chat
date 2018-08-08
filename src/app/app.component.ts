@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dps-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor() {  }
+
+  chatMessages: Observable<any[]>;
+
+  constructor(private db: AngularFirestore) {
+    this.chatMessages = db.collection('chatMessages').valueChanges();
+  }
+
 }
