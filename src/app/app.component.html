@@ -2,7 +2,7 @@
   <h1 class="title float-left">Let's Chat!</h1>
 </div>
 <div class="center-content">
-  <div class="chat-box">
+  <div class="chat-box" #chatBox [scrollTop]="chatBox.scrollHeight">
     <ul>
       <li *ngFor="let message of chatMessages | async">{{message.from}}: {{message.message}}</li>
     </ul>
